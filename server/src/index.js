@@ -26,7 +26,6 @@ app.use(express.static(path.join(__dirname, '../client/src')));
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '../client/src/index.html'));
 });
-
 // Health check
 app.get('/health', (req, res) => {
   res.json({ status: 'ok' });
