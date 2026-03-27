@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: message-app-test
+    runtime: node
+    plan: free
+    buildCommand: cd server && npm install
+    startCommand: cd server && node src/index.js
+    envVars:
+      - key: DB_HOST
+        value: dpg-d72n2i7diees739t7o30-a.oregon-postgres.render.com
+      - key: DB_PORT
+        value: 5432
+      - key: DB_USER
+        value: messenger_user
+      - key: DB_PASSWORD
+        value: XWmv9rDrlu53AzNV30OajEAMhwLxUsYQ
+      - key: DB_NAME
+        value: messenger_9c3c
+      - key: PORT
+        value: 10000
+      - key: NODE_ENV
+        value: production
