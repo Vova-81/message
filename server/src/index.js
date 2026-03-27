@@ -4,7 +4,7 @@ const http = require('http');
 const { Server } = require('socket.io');
 const cors = require('cors');
 const { pool, initDatabase } = require('./db');
-
+const path = require('path');
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -15,9 +15,20 @@ const io = new Server(server, {
 });
 
 initDatabase();
-
+app.use((req, res, next) => {
+  res.removeHeader('Content-Security-Policy');
+  next();
+});
 app.use(cors());
 app.use(express.json());
+
+// Раздача статики из папки public (фронтенд)
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+// Корневой маршрут
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+});
 
 // Health check
 app.get('/health', (req, res) => {
