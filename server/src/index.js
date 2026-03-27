@@ -5,7 +5,6 @@ const { Server } = require('socket.io');
 const cors = require('cors');
 const { pool, initDatabase } = require('./db');
 const path = require('path');
-console.log('Serving from:', path.join(__dirname, '../client/src'));
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server, {
@@ -23,9 +22,10 @@ app.use((req, res, next) => {
 app.use(cors());
 app.use(express.json());
 
-app.use(express.static(path.join(__dirname, '../../client/src')));
+//путь к frontend
+app.use(express.static(path.join(__dirname, '../client/dist')));
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../../client/src/index.html'));
+  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
 });
 
 // Health check
