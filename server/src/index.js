@@ -22,12 +22,9 @@ app.use((req, res, next) => {
 app.use(cors());
 app.use(express.json());
 
-// Раздача статики из папки public (фронтенд)
-app.use(express.static(path.join(__dirname, '../client/dist')));
-
-// Корневой маршрут
+app.use(express.static(path.join(__dirname, '../client/src')));
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+  res.sendFile(path.join(__dirname, '../client/src/index.html'));
 });
 
 // Health check
